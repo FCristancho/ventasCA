@@ -1,9 +1,8 @@
-package co.com.devco.jpa;
+package co.com.devco.jpa.repository.cliente;
 
 import co.com.devco.jpa.entities.ClienteDB;
 import co.com.devco.jpa.helper.AdapterOperations;
 import co.com.devco.model.cliente.Cliente;
-import co.com.devco.model.cliente.gateways.ClienteRepository;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JPARepositoryAdapter extends AdapterOperations<Cliente, ClienteDB, Long, JPARepository> implements ClienteRepository {
+public class ClienteRepositoryAdapter extends AdapterOperations<Cliente, ClienteDB, Long, ClienteRepository> implements co.com.devco.model.cliente.gateways.ClienteRepository {
 
-    public JPARepositoryAdapter(JPARepository repository, ObjectMapper mapper) {
+    public ClienteRepositoryAdapter(ClienteRepository repository, ObjectMapper mapper) {
         /**
          *  Could be use mapper.mapBuilder if your domain model implement builder pattern
          *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
