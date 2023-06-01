@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static co.com.devco.model.utils.Messages.*;
 import static co.com.devco.model.utils.ValidadorArgumento.*;
 
 @Getter
@@ -11,14 +12,6 @@ import static co.com.devco.model.utils.ValidadorArgumento.*;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class Cliente {
-
-    private static final String SIN_IDENTIFICACION = "Se debe ingresar la identificacion";
-    private static final String SIN_NOMBRE = "Se debe ingresar el nombre";
-    private static final String SIN_TELEFONO = "Se debe ingresar el telefono";
-    private static final String SIN_EMAIL = "Se debe ingresar el email";
-    private static final String NOMBRE_INVALIDO = "Se debe ingresar un nombre valido";
-    private static final String TELEFONO_INVALIDO = "Se debe ingresar un telefono valido";
-    private static final String EMAIL_INVALIDO = "Email invalido";
 
     private Long id;
     private Long numeroIdentificacion;
@@ -44,5 +37,9 @@ public class Cliente {
         this.email = email;
         this.direccion = direccion;
         this.activo = true;
+    }
+
+    public void cambiarEstado(){
+        this.activo = !this.activo;
     }
 }

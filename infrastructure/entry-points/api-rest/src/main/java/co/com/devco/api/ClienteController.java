@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/clientes", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class ApiRest {
+public class ClienteController {
 
     private static final String OK = "Ok";
     private static final String CREACION_CORRECTA = "Cliente creado correctamente";
@@ -53,8 +53,8 @@ public class ApiRest {
         return ResponseEntity.ok(respuesta);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Cliente> desactivarCliente(@PathVariable Long id){
+    @PatchMapping("/{id}")
+    public ResponseEntity<Cliente> cambiarEstadoCliente(@PathVariable Long id){
         Cliente respuesta = useCase.desactivarCliente(id);
         return ResponseEntity.ok(respuesta);
     }

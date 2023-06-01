@@ -7,10 +7,11 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static co.com.devco.usecase.utils.Messages.CATEGORIA_NO_ENCONTRADA;
+
 @RequiredArgsConstructor
 public class CategoriaUseCase {
 
-    private static final String CATEGORIA_NO_ENCONTRADA = "Categoria no encontrada";
     private final CategoriaRepository categoriaGateway;
 
     public Categoria obtenerCategoria(Long id){

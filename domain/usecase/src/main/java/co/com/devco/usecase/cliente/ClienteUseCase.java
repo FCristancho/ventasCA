@@ -9,13 +9,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static co.com.devco.model.utils.ValidadorArgumento.validarEmail;
+import static co.com.devco.usecase.utils.Messages.*;
 
 @RequiredArgsConstructor
 public class ClienteUseCase {
-
-    private static final String EL_CLIENTE_YA_EXISTE_EN_EL_SISTEMA = "El cliente ya existe en el sistema";
-    private static final String CLIENTE_NO_ENCONTRADO = "Cliente no encontrado";
-    private static final String EMAIL_INVALIDO = "Email invalido";
 
     private final ClienteRepository clienteGateway;
 
@@ -64,8 +61,7 @@ public class ClienteUseCase {
 
     public Cliente desactivarCliente(Long id){
         Cliente cliente = this.obtenerCliente(id);
-        boolean inactivo = false;
-        cliente.setActivo(inactivo);
+        cliente.cambiarEstado();
         return clienteGateway.guardarCliente(cliente);
     }
 

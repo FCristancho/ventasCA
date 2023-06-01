@@ -3,6 +3,7 @@ package co.com.devco.jpa.repository.cliente;
 import co.com.devco.jpa.entities.ClienteDB;
 import co.com.devco.jpa.helper.AdapterOperations;
 import co.com.devco.model.cliente.Cliente;
+import jakarta.transaction.Transactional;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,7 @@ public class ClienteRepositoryAdapter extends AdapterOperations<Cliente, Cliente
         return findAll();
     }
 
+    @Transactional
     @Override
     public Cliente guardarCliente(Cliente cliente) {
         return save(cliente);
