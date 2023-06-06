@@ -10,5 +10,7 @@ public class Messages {
     public static final String TELEFONO_INVALIDO = "Se debe ingresar un telefono valido";
     public static final String EMAIL_INVALIDO = "Email invalido";
 
+    public static final String STOCK_NO_DISPONIBLE = "Stock no disponible";
+
     private Messages(){}
 }

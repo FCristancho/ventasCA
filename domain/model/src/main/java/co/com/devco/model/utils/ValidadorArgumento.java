@@ -23,4 +23,9 @@ public class ValidadorArgumento {
         if(!email.matches(regex))
             throw new ExcepcionEmail(mensaje);
     }
+
+    public static void validarPositivo(int numero, String mensaje){
+        if(numero < 0)
+            throw new ExcepcionValorInvalido(mensaje);
+    }
 }
