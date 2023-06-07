@@ -7,5 +7,7 @@ public class Messages {
     public static final String EMAIL_INVALIDO = "Email invalido";
     public static final String CATEGORIA_NO_ENCONTRADA = "Categoria no encontrada";
 
+    public static final String PRODUCTO_NO_ENCONTRADO = "Producto no encontrado";
+
     private Messages(){}
 }
