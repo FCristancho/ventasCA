@@ -9,5 +9,7 @@ public class Messages {
 
     public static final String PRODUCTO_NO_ENCONTRADO = "Producto no encontrado";
 
+    public static final String CAJERO_NO_ENCONTRADO = "Cajero no encontrado";
+
     private Messages(){}
 }
