@@ -24,7 +24,7 @@ public class Venta {
 
     public void eliminarProductosSinCantidad(){
         this.productos = productos.stream()
-                .filter( producto -> producto.hayProductosEnLaCesta())
+                .filter(DetalleVenta::hayProductosEnLaCesta)
                 .toList();
     }
 }

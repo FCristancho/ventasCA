@@ -6,4 +6,10 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql' // TODO: remove this to use real database
     testImplementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+
+    // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws-secrets-manager-config
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws-secrets-manager-config:2.4.4'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws-core
+    implementation 'org.springframework.cloud:spring-cloud-aws-core:2.2.6.RELEASE'
+
 }
