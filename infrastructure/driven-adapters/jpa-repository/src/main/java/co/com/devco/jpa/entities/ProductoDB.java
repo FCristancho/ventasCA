@@ -18,4 +18,6 @@ public class ProductoDB {
     private String nombre;
     private double precio;
     private int stock;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    private CategoriaDB categoria;
 }
