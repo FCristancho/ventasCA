@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -20,11 +22,13 @@ public class Venta {
     private String observacion;
     private Cliente cliente;
     private Cajero cajero;
-    private List<DetalleVenta> productos;
+    private Set<DetalleVenta> productos;
+    private double total;
+    private boolean estado;
 
     public void eliminarProductosSinCantidad(){
         this.productos = productos.stream()
                 .filter(DetalleVenta::hayProductosEnLaCesta)
-                .toList();
+                .collect(Collectors.toSet());
     }
 }

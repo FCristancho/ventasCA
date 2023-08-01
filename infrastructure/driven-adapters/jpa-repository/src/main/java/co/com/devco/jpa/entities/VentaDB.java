@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "VENTAS")
@@ -22,19 +22,22 @@ public class VentaDB {
     private LocalDateTime fecha;
     private String observacion;
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteDB cliente;
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private CajeroDB cajero;
 
     @OneToMany(mappedBy = "venta")
-    private List<DetalleVentaDB> detalleVenta;
-
+    private Set<DetalleVentaDB> productos;
     private double total;
+    private boolean estado;
+
 
     @PrePersist
     private void prePersist() {
         if (fecha == null) {
             fecha = LocalDateTime.now();
         }
+        estado = true;
     }
 }

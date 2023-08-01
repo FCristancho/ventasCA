@@ -21,7 +21,7 @@ public class DetalleVentaDB {
     private VentaDB venta;
     @ManyToOne
     @MapsId("productoId")
-    @JoinColumn(name = "producto_id")
+    @JoinColumn(name = "producto_id", nullable = false)
     private ProductoDB producto;
 
     private int cantidad;

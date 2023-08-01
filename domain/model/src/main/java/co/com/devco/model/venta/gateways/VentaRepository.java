@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface VentaRepository {
 
-    Venta guardarVenta();
+    Venta guardarVenta(Venta venta);
     Optional<Venta> obtenerVenta(Long idVenta);
     List<Venta> obtenerVentas();
 

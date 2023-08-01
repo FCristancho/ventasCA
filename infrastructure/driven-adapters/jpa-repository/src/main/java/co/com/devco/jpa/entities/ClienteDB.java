@@ -1,7 +1,10 @@
 package co.com.devco.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "CLIENTES")
@@ -27,4 +30,6 @@ public class ClienteDB {
     private String direccion;
     @Column(nullable = false)
     private boolean activo;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "cliente")
+    private Set<VentaDB> compras;
 }
