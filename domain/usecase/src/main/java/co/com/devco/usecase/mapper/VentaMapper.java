@@ -13,10 +13,10 @@ public class VentaMapper {
     public static VentaDto toVentaDto(Venta venta){
         List<DetalleVentaDto> ventaDtoList = DetalleVentaMapper.toListDetalleVentaDto(venta.getProductos().stream().toList());
         return VentaDto.builder()
-                .id(venta.getId())
+                .idVenta(venta.getId())
                 .fecha(venta.getFecha())
                 .observacion(venta.getObservacion())
-                .idCliente(venta.getCliente().getId())
+                .identificacionCliente(venta.getCliente().getNumeroIdentificacion())
                 .productos(ventaDtoList)
                 .total(venta.getTotal())
                 .build();
