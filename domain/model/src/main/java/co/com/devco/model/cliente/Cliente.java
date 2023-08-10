@@ -24,9 +24,10 @@ public class Cliente {
     private String email;
     private String direccion;
     private boolean activo;
+    private Set<Venta> compras;
 
 
-    public Cliente(Long id, Long numeroIdentificacion, String nombre, String telefono, String email, String direccion, boolean activo) {
+    public Cliente(Long id, Long numeroIdentificacion, String nombre, String telefono, String email, String direccion, boolean activo, Set<Venta> compras) {
         validarObligatorio(numeroIdentificacion, SIN_IDENTIFICACION);
         validarObligatorio(nombre, SIN_NOMBRE);
         validarObligatorio(telefono, SIN_TELEFONO);
@@ -41,6 +42,7 @@ public class Cliente {
         this.email = email;
         this.direccion = direccion;
         this.activo = true;
+        this.compras = compras;
     }
 
     public void cambiarEstado(){

@@ -28,8 +28,8 @@ public class ClienteController {
 
 
     @GetMapping()
-    public ResponseEntity<List<Cliente>> obtenerClientes() {
-        List<Cliente> respuesta = useCase.obtenerClientes();
+    public ResponseEntity<List<co.com.devco.usecase.dto.ClienteDto>> obtenerClientes() {
+        List<co.com.devco.usecase.dto.ClienteDto> respuesta = useCase.obtenerClientes();
         return ResponseEntity.ok(respuesta);
     }
 

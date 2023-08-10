@@ -8,6 +8,9 @@ import java.util.List;
 
 public class DetalleVentaMapper {
 
+    private DetalleVentaMapper() {
+    }
+
     public static DetalleVentaDto toDetalleVentaDto(DetalleVenta detalleVenta){
         ProductoDto productoDto = ProductoMapper.toProductoDto(detalleVenta.getProducto());
         return new DetalleVentaDto(productoDto, detalleVenta.getCantidad(), detalleVenta.getPrecio());

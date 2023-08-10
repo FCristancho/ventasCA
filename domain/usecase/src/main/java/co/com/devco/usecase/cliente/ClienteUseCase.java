@@ -2,8 +2,10 @@ package co.com.devco.usecase.cliente;
 
 import co.com.devco.model.cliente.Cliente;
 import co.com.devco.model.cliente.gateways.ClienteRepository;
+import co.com.devco.usecase.dto.ClienteDto;
 import co.com.devco.usecase.exception.ExcepcionDuplicidad;
 import co.com.devco.usecase.exception.ExcepcionNoEncontrado;
+import co.com.devco.usecase.mapper.ClienteMapper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -16,8 +18,9 @@ public class ClienteUseCase {
 
     private final ClienteRepository clienteGateway;
 
-    public List<Cliente> obtenerClientes(){
-        return clienteGateway.obtenerClientes();
+    public List<ClienteDto> obtenerClientes(){
+        List<Cliente> cliente = clienteGateway.obtenerClientes();
+        return ClienteMapper.toListClienteDto(cliente);
     }
 
     public Cliente crearCliente(Cliente cliente){

@@ -2,6 +2,7 @@ package co.com.devco.usecase.cliente;
 
 import co.com.devco.model.cliente.Cliente;
 import co.com.devco.model.cliente.gateways.ClienteRepository;
+import co.com.devco.usecase.dto.ClienteDto;
 import co.com.devco.usecase.exception.ExcepcionDuplicidad;
 import co.com.devco.usecase.exception.ExcepcionNoEncontrado;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ class ClienteUseCaseTest {
     void testObtenerClientesExitosamente() {
         when(repository.obtenerClientes()).thenReturn(Datos.CLIENTES);
 
-        List<Cliente> clientes = clienteUseCase.obtenerClientes();
+        List<ClienteDto> clientes = clienteUseCase.obtenerClientes();
 
         assertEquals(2, clientes.size());
 
