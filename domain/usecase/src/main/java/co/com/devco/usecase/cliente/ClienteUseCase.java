@@ -2,12 +2,16 @@ package co.com.devco.usecase.cliente;
 
 import co.com.devco.model.cliente.Cliente;
 import co.com.devco.model.cliente.gateways.ClienteRepository;
+import co.com.devco.model.venta.Venta;
 import co.com.devco.usecase.dto.ClienteDto;
+import co.com.devco.usecase.dto.VentaDto;
 import co.com.devco.usecase.exception.ExcepcionDuplicidad;
 import co.com.devco.usecase.exception.ExcepcionNoEncontrado;
 import co.com.devco.usecase.mapper.ClienteMapper;
+import co.com.devco.usecase.mapper.VentaMapper;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static co.com.devco.model.utils.ValidadorArgumento.validarEmail;
@@ -44,6 +48,16 @@ public class ClienteUseCase {
     public Cliente modificarCliente(Cliente clienteModificado){
         Cliente clienteActualizado = validarActualizacionCliente(clienteModificado);
         return this.clienteGateway.guardarCliente(clienteActualizado);
+    }
+
+    public List<VentaDto> obtenerVentasPorCliente(Long identificacion){
+        Cliente cliente = this.obtenerClientePorIdentificacion(identificacion);
+        return VentaMapper.toListVentaDto(new ArrayList<>(cliente.getCompras()));
+    }
+    public Cliente obtenerClientePorIdentificacion(Long identificacion){
+        return this.clienteGateway.obtenerClientePorIdentificacion(identificacion).orElseThrow(
+                () -> new ExcepcionNoEncontrado(CLIENTE_NO_ENCONTRADO)
+        );
     }
 
     private Cliente validarActualizacionCliente(Cliente clienteModificado){

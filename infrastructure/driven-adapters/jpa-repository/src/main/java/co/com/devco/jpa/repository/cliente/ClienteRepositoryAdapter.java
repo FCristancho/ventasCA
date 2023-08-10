@@ -42,4 +42,10 @@ public class ClienteRepositoryAdapter extends AdapterOperations<Cliente, Cliente
     public boolean existeIdentificacion(Long numeroIdentificacion) {
         return repository.existsByNumeroIdentificacion(numeroIdentificacion);
     }
+
+    @Override
+    public Optional<Cliente> obtenerClientePorIdentificacion(Long identificacion) {
+        Cliente cliente = toEntity(repository.findByNumeroIdentificacion(identificacion));
+        return Optional.ofNullable(cliente);
+    }
 }

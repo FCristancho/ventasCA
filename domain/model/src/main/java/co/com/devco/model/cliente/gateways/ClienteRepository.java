@@ -13,4 +13,5 @@ public interface ClienteRepository {
     Optional<Cliente> obtenerCliente(Long id);
 
     boolean existeIdentificacion(Long numeroIdentificacion);
+    Optional<Cliente> obtenerClientePorIdentificacion(Long id);
 }

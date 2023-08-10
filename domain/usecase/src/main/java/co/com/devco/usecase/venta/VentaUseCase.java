@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static co.com.devco.model.utils.Messages.VENTA_NO_ENCONTRADA;
+
 @RequiredArgsConstructor
 public class VentaUseCase {
 
@@ -23,7 +25,7 @@ public class VentaUseCase {
 
     public VentaDto obtenerVentaPorId(Long id){
         Venta venta = this.ventaRepository.obtenerVenta(id).
-                orElseThrow(() -> new ExcepcionNoEncontrado("Venta no encontada"));
+                orElseThrow(() -> new ExcepcionNoEncontrado(VENTA_NO_ENCONTRADA));
         return VentaMapper.toVentaDto(venta);
     }
 }

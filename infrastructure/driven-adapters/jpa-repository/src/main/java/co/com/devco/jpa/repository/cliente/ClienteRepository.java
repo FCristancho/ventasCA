@@ -7,4 +7,5 @@ import org.springframework.data.repository.query.QueryByExampleExecutor;
 public interface ClienteRepository extends CrudRepository<ClienteDB, Long>, QueryByExampleExecutor<ClienteDB> {
 
     boolean existsByNumeroIdentificacion(Long numeroIdentificacion);
+    ClienteDB findByNumeroIdentificacion(Long identificacion);
 }
