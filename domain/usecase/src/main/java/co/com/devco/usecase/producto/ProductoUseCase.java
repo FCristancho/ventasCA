@@ -34,4 +34,10 @@ public class ProductoUseCase {
         }
         return productoRepository.guardarProducto(producto);
     }
+
+    public void validarExistenciaProducto(Long id) {
+        if (!productoRepository.existePorId(id)) {
+            throw new ExcepcionNoEncontrado(PRODUCTO_NO_ENCONTRADO);
+        }
+    }
 }

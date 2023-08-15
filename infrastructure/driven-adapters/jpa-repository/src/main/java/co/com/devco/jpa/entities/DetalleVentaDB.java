@@ -26,6 +26,4 @@ public class DetalleVentaDB {
 
     private int cantidad;
     private double precio;
-
-    private boolean estado;
 }

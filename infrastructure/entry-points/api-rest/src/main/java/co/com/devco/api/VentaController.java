@@ -1,7 +1,9 @@
 package co.com.devco.api;
 
+import co.com.devco.model.venta.Venta;
 import co.com.devco.usecase.cliente.ClienteUseCase;
 import co.com.devco.usecase.dto.VentaDto;
+import co.com.devco.usecase.dto.VentaNuevaDto;
 import co.com.devco.usecase.venta.VentaUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -30,5 +32,10 @@ public class VentaController {
     @GetMapping("/cliente")
     public List<VentaDto> obtenerVentasPorCliente(@RequestParam Long identificacion){
         return this.clienteUseCase.obtenerVentasPorCliente(identificacion);
+    }
+
+    @PostMapping
+    public VentaDto guardarVenta(@RequestBody VentaNuevaDto venta){
+        return this.ventaUseCase.guardarVenta(venta);
     }
 }

@@ -28,4 +28,9 @@ public class ProductoRepositoryAdapter extends AdapterOperations<Producto, Produ
     public Producto guardarProducto(Producto producto) {
         return save(producto);
     }
+
+    @Override
+    public boolean existePorId(Long id) {
+        return repository.existsById(id);
+    }
 }

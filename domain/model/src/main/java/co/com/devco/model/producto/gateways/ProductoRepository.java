@@ -10,4 +10,5 @@ public interface ProductoRepository {
     Optional<Producto> obtenerProducto(Long idProducto);
     List<Producto> obtenerProductos();
     Producto guardarProducto(Producto producto);
+    boolean existePorId(Long id);
 }
