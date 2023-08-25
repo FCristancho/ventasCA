@@ -2,7 +2,6 @@ package co.com.devco.usecase.venta;
 
 import co.com.devco.model.cajero.Cajero;
 import co.com.devco.model.cliente.Cliente;
-import co.com.devco.model.cliente.gateways.ClienteRepository;
 import co.com.devco.model.producto.Producto;
 import co.com.devco.model.venta.DetalleVenta;
 import co.com.devco.model.venta.Venta;
@@ -18,11 +17,9 @@ import co.com.devco.usecase.mapper.VentaMapper;
 import co.com.devco.usecase.producto.ProductoUseCase;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static co.com.devco.model.utils.Messages.VENTA_NO_ENCONTRADA;
 
@@ -56,11 +53,11 @@ public class VentaUseCase {
                 .productos(detalleVenta)
                 .build();
         venta.eliminarProductosSinCantidad();
-        venta.quitarDuplicados();
+        venta.quitarDuplicados1();
         venta.calcularTotal();
-        System.out.println(venta);
 
-        return VentaMapper.toVentaDto(venta);
+        Venta ventadb = ventaRepository.guardarVenta(venta);
+        return VentaMapper.toVentaDto(ventadb);
     }
 
     private Set<DetalleVenta> obtenerListaProductos(List<ProductoVentaNuevaDto> productos){

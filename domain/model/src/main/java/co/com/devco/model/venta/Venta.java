@@ -54,6 +54,17 @@ public class Venta {
             }
         });
         this.productos = new HashSet<>(productosMap.values());
-        //TODO se puede realizar con mapas
+    }
+
+    public void quitarDuplicados1(){
+        Map<Long, DetalleVenta> productosMap = new HashMap<>();
+        productos.forEach(detalle -> {
+            Long productoId = detalle.getProducto().getId();
+            if (productosMap.containsKey(productoId)) {
+                productosMap.get(productoId).setCantidad(productosMap.get(productoId).getCantidad() + detalle.getCantidad());
+            }
+            productosMap.putIfAbsent(productoId, detalle);
+        });
+        this.productos = new HashSet<>(productosMap.values());
     }
 }

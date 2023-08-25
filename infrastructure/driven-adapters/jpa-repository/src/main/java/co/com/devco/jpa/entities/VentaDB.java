@@ -21,10 +21,10 @@ public class VentaDB {
     @Column()
     private LocalDateTime fecha;
     private String observacion;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteDB cliente;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private CajeroDB cajero;
 
     @OneToMany(mappedBy = "venta")
