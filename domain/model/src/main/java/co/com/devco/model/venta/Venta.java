@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@ToString
 public class Venta {
 
     private Long id;

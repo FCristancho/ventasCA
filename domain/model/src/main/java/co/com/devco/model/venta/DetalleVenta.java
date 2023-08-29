@@ -11,6 +11,7 @@ import lombok.*;
 @ToString
 public class DetalleVenta {
     private Producto producto;
+    private Venta venta;
     private int cantidad;
     private double precio;
 

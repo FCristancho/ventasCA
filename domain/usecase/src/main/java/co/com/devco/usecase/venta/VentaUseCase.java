@@ -5,6 +5,7 @@ import co.com.devco.model.cliente.Cliente;
 import co.com.devco.model.producto.Producto;
 import co.com.devco.model.venta.DetalleVenta;
 import co.com.devco.model.venta.Venta;
+import co.com.devco.model.venta.gateways.DetalleVentaRepository;
 import co.com.devco.model.venta.gateways.VentaRepository;
 import co.com.devco.usecase.cajero.CajeroUseCase;
 import co.com.devco.usecase.cliente.ClienteUseCase;
@@ -30,6 +31,7 @@ public class VentaUseCase {
     private final ClienteUseCase clienteUseCase;
     private final CajeroUseCase cajeroUseCase;
     private final ProductoUseCase productoUseCase;
+    private final DetalleVentaRepository detalleVentaRepository;
 
     public List<VentaDto> obtenerVentas(){
         List<Venta> venta = this.ventaRepository.obtenerVentas();
@@ -45,27 +47,32 @@ public class VentaUseCase {
     public VentaDto guardarVenta(VentaNuevaDto ventaNueva){
         Cliente cliente = clienteUseCase.obtenerClientePorIdentificacion(ventaNueva.getIdentificacionCliente());
         Cajero cajero = cajeroUseCase.obtenerCajero(ventaNueva.getIdCajero());
-        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos());
         Venta venta = Venta.builder()
                 .observacion(ventaNueva.getObservacion())
                 .cliente(cliente)
                 .cajero(cajero)
-                .productos(detalleVenta)
                 .build();
-        venta.eliminarProductosSinCantidad();
-        venta.quitarDuplicados1();
-        venta.calcularTotal();
 
         Venta ventadb = ventaRepository.guardarVenta(venta);
+        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos(), ventadb);
+        ventadb.setProductos(detalleVenta);
+        ventadb.eliminarProductosSinCantidad();
+        ventadb.quitarDuplicados1();
+        ventadb.calcularTotal();
+        System.out.println("------->"+detalleVenta.size());
+        DetalleVenta d = detalleVenta.iterator().next();
+        System.out.println(d.getPrecio());
+        detalleVentaRepository.guardarDetalleVenta(d);
         return VentaMapper.toVentaDto(ventadb);
     }
 
-    private Set<DetalleVenta> obtenerListaProductos(List<ProductoVentaNuevaDto> productos){
+    private Set<DetalleVenta> obtenerListaProductos(List<ProductoVentaNuevaDto> productos, Venta venta){
         Set<DetalleVenta> productosVenta = new HashSet<>();
         productos.forEach(producto -> {
             Producto productoEncontrado = productoUseCase.obtenerProducto(producto.getIdProducto());
             DetalleVenta detalle = ProductoMapper.toDetalleVenta(producto);
             detalle.setProducto(productoEncontrado);
+            detalle.setVenta(venta);
             productosVenta.add(detalle);
         });
 

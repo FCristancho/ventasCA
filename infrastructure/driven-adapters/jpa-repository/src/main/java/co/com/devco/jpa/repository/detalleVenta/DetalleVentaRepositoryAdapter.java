@@ -7,8 +7,6 @@ import co.com.devco.model.venta.DetalleVenta;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.function.Function;
-
 @Repository
 public class DetalleVentaRepositoryAdapter extends AdapterOperations<DetalleVenta, DetalleVentaDB, DetalleVentaPK, DetalleVentaRepository>
     implements co.com.devco.model.venta.gateways.DetalleVentaRepository{
@@ -19,6 +17,7 @@ public class DetalleVentaRepositoryAdapter extends AdapterOperations<DetalleVent
 
     @Override
     public DetalleVenta guardarDetalleVenta(DetalleVenta detalleVenta) {
-        return null;
+        System.out.println(detalleVenta);
+        return save(detalleVenta);
     }
 }
