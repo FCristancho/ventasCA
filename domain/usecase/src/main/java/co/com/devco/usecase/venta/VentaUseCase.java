@@ -48,12 +48,9 @@ public class VentaUseCase {
         Cliente cliente = clienteUseCase.obtenerClientePorIdentificacion(ventaNueva.getIdentificacionCliente());
         Cajero cajero = cajeroUseCase.obtenerCajero(ventaNueva.getIdCajero());
         validarProductosVenta(ventaNueva.getProductos());
+
         Venta venta = this.construirVenta(ventaNueva, cliente, cajero);
-        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos(), venta);
-        venta.setProductos(detalleVenta);
-        venta.eliminarProductosSinCantidad();
-        venta.quitarDuplicados();
-        venta.calcularTotal();
+        construirDetalleVenta(ventaNueva, venta);
 
         Venta ventadb = ventaRepository.guardarVenta(venta);
         guardarDetalleVenta(ventadb);
@@ -67,6 +64,16 @@ public class VentaUseCase {
                 .cliente(cliente)
                 .cajero(cajero)
                 .build();
+    }
+
+    public Venta construirDetalleVenta(VentaNuevaDto ventaNueva, Venta venta){
+        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos(), venta);
+        venta.setProductos(detalleVenta);
+        venta.eliminarProductosSinCantidad();
+        venta.quitarDuplicados();
+        venta.calcularTotal();
+
+        return venta;
     }
 
     private Set<DetalleVenta> obtenerListaProductos(List<ProductoVentaNuevaDto> productos, Venta venta){
