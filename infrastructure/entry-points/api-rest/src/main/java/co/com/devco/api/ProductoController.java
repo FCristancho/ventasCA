@@ -1,7 +1,6 @@
 package co.com.devco.api;
 
 import co.com.devco.model.producto.Producto;
-import co.com.devco.model.producto.gateways.ProductoRepository;
 import co.com.devco.usecase.producto.ProductoUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;

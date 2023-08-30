@@ -1,6 +1,5 @@
 package co.com.devco.api;
 
-import co.com.devco.model.venta.Venta;
 import co.com.devco.usecase.cliente.ClienteUseCase;
 import co.com.devco.usecase.dto.VentaDto;
 import co.com.devco.usecase.dto.VentaNuevaDto;

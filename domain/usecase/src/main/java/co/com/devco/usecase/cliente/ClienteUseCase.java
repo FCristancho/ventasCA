@@ -2,7 +2,6 @@ package co.com.devco.usecase.cliente;
 
 import co.com.devco.model.cliente.Cliente;
 import co.com.devco.model.cliente.gateways.ClienteRepository;
-import co.com.devco.model.venta.Venta;
 import co.com.devco.usecase.dto.ClienteDto;
 import co.com.devco.usecase.dto.VentaDto;
 import co.com.devco.usecase.exception.ExcepcionDuplicidad;

@@ -47,23 +47,26 @@ public class VentaUseCase {
     public VentaDto guardarVenta(VentaNuevaDto ventaNueva){
         Cliente cliente = clienteUseCase.obtenerClientePorIdentificacion(ventaNueva.getIdentificacionCliente());
         Cajero cajero = cajeroUseCase.obtenerCajero(ventaNueva.getIdCajero());
-        Venta venta = Venta.builder()
+        validarProductosVenta(ventaNueva.getProductos());
+        Venta venta = this.construirVenta(ventaNueva, cliente, cajero);
+        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos(), venta);
+        venta.setProductos(detalleVenta);
+        venta.eliminarProductosSinCantidad();
+        venta.quitarDuplicados();
+        venta.calcularTotal();
+
+        Venta ventadb = ventaRepository.guardarVenta(venta);
+        guardarDetalleVenta(ventadb);
+
+        return VentaMapper.toVentaDto(ventadb);
+    }
+
+    public Venta construirVenta(VentaNuevaDto ventaNueva, Cliente cliente, Cajero cajero){
+        return Venta.builder()
                 .observacion(ventaNueva.getObservacion())
                 .cliente(cliente)
                 .cajero(cajero)
                 .build();
-
-        Venta ventadb = ventaRepository.guardarVenta(venta);
-        Set<DetalleVenta> detalleVenta = obtenerListaProductos(ventaNueva.getProductos(), ventadb);
-        ventadb.setProductos(detalleVenta);
-        ventadb.eliminarProductosSinCantidad();
-        ventadb.quitarDuplicados1();
-        ventadb.calcularTotal();
-        System.out.println("------->"+detalleVenta.size());
-        DetalleVenta d = detalleVenta.iterator().next();
-        System.out.println(d.getPrecio());
-        detalleVentaRepository.guardarDetalleVenta(d);
-        return VentaMapper.toVentaDto(ventadb);
     }
 
     private Set<DetalleVenta> obtenerListaProductos(List<ProductoVentaNuevaDto> productos, Venta venta){
@@ -77,5 +80,17 @@ public class VentaUseCase {
         });
 
         return productosVenta;
+    }
+
+    private void validarProductosVenta(List<ProductoVentaNuevaDto> productos){
+        productos.forEach(producto ->
+            productoUseCase.validarExistenciaProducto(producto.getIdProducto())
+        );
+    }
+
+    private void guardarDetalleVenta(Venta venta){
+        venta.getProductos().forEach(
+            detalleVentaRepository::guardarDetalleVenta
+        );
     }
 }

@@ -1,11 +1,11 @@
 package co.com.devco.model.cliente;
+
 import co.com.devco.model.venta.Venta;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static co.com.devco.model.utils.Messages.*;

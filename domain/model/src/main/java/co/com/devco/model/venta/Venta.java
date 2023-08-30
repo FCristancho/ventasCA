@@ -2,7 +2,6 @@ package co.com.devco.model.venta;
 
 import co.com.devco.model.cajero.Cajero;
 import co.com.devco.model.cliente.Cliente;
-import co.com.devco.model.producto.Producto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -35,27 +34,7 @@ public class Venta {
                 .collect(Collectors.toSet());
     }
 
-    public void calcularTotal(){
-        this.total = productos.stream()
-                .mapToDouble(producto -> producto.getPrecio() * producto.getCantidad())
-                .reduce(0, Double::sum);
-    }
-
     public void quitarDuplicados(){
-        Map<Long, DetalleVenta> productosMap = new HashMap<>();
-        productos.forEach( detalle -> {
-            DetalleVenta producto = productosMap.get(detalle.getProducto().getId());
-            if(producto != null){
-                producto.setCantidad(producto.getCantidad() + detalle.getCantidad());
-                productosMap.put(detalle.getProducto().getId(), producto);
-            }else{
-                productosMap.put(detalle.getProducto().getId(), detalle);
-            }
-        });
-        this.productos = new HashSet<>(productosMap.values());
-    }
-
-    public void quitarDuplicados1(){
         Map<Long, DetalleVenta> productosMap = new HashMap<>();
         productos.forEach(detalle -> {
             Long productoId = detalle.getProducto().getId();
@@ -65,5 +44,11 @@ public class Venta {
             productosMap.putIfAbsent(productoId, detalle);
         });
         this.productos = new HashSet<>(productosMap.values());
+    }
+
+    public void calcularTotal(){
+        this.total = productos.stream()
+                .mapToDouble(producto -> producto.getPrecio() * producto.getCantidad())
+                .reduce(0, Double::sum);
     }
 }

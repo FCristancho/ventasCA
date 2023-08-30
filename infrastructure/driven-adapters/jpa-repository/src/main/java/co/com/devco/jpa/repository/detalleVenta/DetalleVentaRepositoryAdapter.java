@@ -17,7 +17,18 @@ public class DetalleVentaRepositoryAdapter extends AdapterOperations<DetalleVent
 
     @Override
     public DetalleVenta guardarDetalleVenta(DetalleVenta detalleVenta) {
-        System.out.println(detalleVenta);
         return save(detalleVenta);
+    }
+
+    @Override
+    public DetalleVenta save(DetalleVenta entity) {
+        return saveDB(entity);
+    }
+
+    public DetalleVenta saveDB(DetalleVenta entity){
+        DetalleVentaDB detalleVentaDB = toData(entity);
+        DetalleVentaPK detalleVentaPK = new DetalleVentaPK(entity.getVenta().getId(), entity.getProducto().getId());
+        detalleVentaDB.setId(detalleVentaPK);
+        return toEntity(super.saveData(detalleVentaDB));
     }
 }
