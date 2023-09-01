@@ -1,4 +1,5 @@
 package co.com.devco.model.producto;
+import co.com.devco.model.categoria.Categoria;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
+    private Categoria categoria;
 
     public void descontarStock(int cantidad){
         int stock = this.stock - cantidad;

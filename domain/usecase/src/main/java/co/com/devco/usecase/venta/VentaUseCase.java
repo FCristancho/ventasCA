@@ -45,9 +45,9 @@ public class VentaUseCase {
     }
 
     public VentaDto guardarVenta(VentaNuevaDto ventaNueva){
+        validarProductosVenta(ventaNueva.getProductos());
         Cliente cliente = clienteUseCase.obtenerClientePorIdentificacion(ventaNueva.getIdentificacionCliente());
         Cajero cajero = cajeroUseCase.obtenerCajero(ventaNueva.getIdCajero());
-        validarProductosVenta(ventaNueva.getProductos());
 
         Venta venta = this.construirVenta(ventaNueva, cliente, cajero);
         construirDetalleVenta(ventaNueva, venta);
@@ -56,6 +56,13 @@ public class VentaUseCase {
         guardarDetalleVenta(ventadb);
 
         return VentaMapper.toVentaDto(ventadb);
+    }
+
+    private void validarProductosVenta(List<ProductoVentaNuevaDto> productos){
+        productos.forEach(producto ->{
+            productoUseCase.validarExistenciaProducto(producto.getIdProducto());
+            productoUseCase.actualizarStock(producto.getIdProducto(), producto.getCantidad(), Boolean.TRUE);
+        });
     }
 
     public Venta construirVenta(VentaNuevaDto ventaNueva, Cliente cliente, Cajero cajero){
@@ -87,12 +94,6 @@ public class VentaUseCase {
         });
 
         return productosVenta;
-    }
-
-    private void validarProductosVenta(List<ProductoVentaNuevaDto> productos){
-        productos.forEach(producto ->
-            productoUseCase.validarExistenciaProducto(producto.getIdProducto())
-        );
     }
 
     private void guardarDetalleVenta(Venta venta){
